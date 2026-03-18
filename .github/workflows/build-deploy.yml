@@ -7,6 +7,8 @@ on:
     pull_request:
         branches:
             - main
+    repository_dispatch:
+      types: [logger_updated]
 
 concurrency:
     group: ${{github.workflow}}-${{github.ref}}
@@ -26,6 +28,8 @@ jobs:
                     cache: 'npm'
             - name: Intall Dependencies
               run: npm ci
+            - name: Install latest logger
+              run: npm install sarfaraz-vue-logger@latest
             # Can perform tests here
             - name: Build App
               run: npm run build
@@ -45,7 +49,7 @@ jobs:
               with:
                     name: build-files
                     path: ./dist
-            - name: Deploy to live server
+            - name: Deploy to github pages
               uses: peaceiris/actions-gh-pages@v4
               with:
                     github_token: ${{secrets.GITHUB_TOKEN}}
