@@ -7,6 +7,7 @@ import vueDevTools from "vite-plugin-vue-devtools";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
+  base: '/todo-app-vue/',
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
